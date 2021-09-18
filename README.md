@@ -8,6 +8,13 @@ Clone this repo
 git clone https://github.com/cyberwaver/youverify--assessment.git
 ```
 
+To run seeder files for `customer-service` and `product-service`;
+
+```cd [service]
+
+  node scripts/seeder.js
+```
+
 _Time factor: I would have completed the automated test setup_
 
 ## Tools Used
