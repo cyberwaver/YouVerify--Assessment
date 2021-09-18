@@ -3,15 +3,15 @@ const logPath = path.join(__dirname, "../../logs/development.log");
 
 module.exports = {
   web: {
-    PORT: 8001,
+    PORT: process.env.PORT,
   },
   database: {
     mongoDB: {
-      URI: "mongodb://127.0.0.1:27017/YouVerifyTest",
+      URI: process.env.MONGODB_URI,
     },
   },
   rabbitMQ: {
-    URI: "amqps://fhpxmzlp:QNBbenrHqyI2eBcpoKlZnxafW_qlstrz@snake.rmq2.cloudamqp.com/fhpxmzlp",
+    URI: process.env.RABBITMQ_URI,
   },
   logging: {
     appenders: {
