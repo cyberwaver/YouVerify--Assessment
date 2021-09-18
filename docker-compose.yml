@@ -1,0 +1,70 @@
+version: "3.2"
+services:
+  customer-service:
+    build: ./customer-service
+    ports:
+      - "8011:5000"
+    links:
+      - mongo
+      - rabbitmq
+    depends_on:
+      - rabbitmq
+    environment:
+      - NODE_ENV=production
+      - PORT=5000
+      - MONGODB_URI=mongodb://mongo:27017/payment-service
+      - RABBITMQ_URI=amqp://@rabbitmq
+  product-service:
+    build: ./product-service
+    ports:
+      - "8012:5000"
+    links:
+      - mongo
+      - rabbitmq
+    depends_on:
+      - rabbitmq
+    environment:
+      - NODE_ENV=production
+      - PORT=5000
+      - MONGODB_URI=mongodb://mongo:27017/payment-service
+      - RABBITMQ_URI=amqp://@rabbitmq
+  order-service:
+    build: ./order-service
+    ports:
+      - "8013:5000"
+    links:
+      - mongo
+      - rabbitmq
+    depends_on:
+      - rabbitmq
+    environment:
+      - NODE_ENV=production
+      - PORT=5000
+      - MONGODB_URI=mongodb://mongo:27017/payment-service
+      - RABBITMQ_URI=amqp://@rabbitmq
+  payment-service:
+    build: ./payment-service
+    ports:
+      - "8014:5000"
+    restart: always
+    links:
+      - mongo
+      - rabbitmq
+    depends_on:
+      - rabbitmq
+    environment:
+      - NODE_ENV=production
+      - PORT=5000
+      - MONGODB_URI=mongodb://mongo:27017/payment-service
+      - RABBITMQ_URI=amqp://@rabbitmq
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - "27017:27017"
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: "rabbitmq"
+    ports:
+      - 5672:5672
+      - 15672:15672
